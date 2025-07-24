@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-BIT Verse | Lore</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for general text, Press Start 2P for retro elements -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Animate On Scroll Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Custom CSS for consistent styling across pages -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Body Styling - Ensure background-elements can be seen */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: transparent; /* Set to transparent to reveal background-elements */
+            color: #FFFFFF; /* All white font */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            position: relative; /* Needed for absolute positioning of background elements */
+        }
+
+        /* Global Background Elements Container - Consolidated here for reliability */
+        .background-elements {
+            position: fixed; /* Fixed to viewport so it covers the whole screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hide elements that go beyond the screen */
+            z-index: -1; /* Ensure it's behind all content */
+            pointer-events: none; /* Allow clicks to pass through to content */
+            background-color: #0A0A0A; /* Applied deep space black here as the base */
+        }
+
+        /* particles.js container */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: transparent; /* Particles.js will draw on top of the base background */
+            background-image: url(''); /* No background image for particles */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+            z-index: 0; /* Ensure it's above the base background-color of .background-elements, but still behind content */
+        }
+
+        /* Header styling for minimalist futuristic look */
+        .custom-header {
+            background-color: transparent; /* Transparent background */
+            border: none;
+            padding: 1.5rem 2rem; /* Slightly more padding */
+            position: absolute; /* Position above hero section */
+            width: 100%;
+            z-index: 100; /* Ensure it's on top */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            display: flex; /* Ensure flex properties apply */
+            justify-content: center; /* Center the nav-bar-container */
+            align-items: center;
+            top: 0; /* Pushes the header to the very top */
+        }
+
+        /* New container for the navigation links and social icons */
+        .nav-bar-container {
+            background-color: rgba(26, 26, 27, 0.5); /* Subtle translucent background */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+            border-radius: 9999px; /* Pill shape */
+            padding: 0.75rem 1.5rem; /* Padding inside the container */
+            display: flex;
+            align-items: center;
+            /* Adjusted gap: space between logo and nav, and between nav items */
+            gap: 1.5rem; /* Default gap */
+        }
+
+        .nav-bar-container .logo-container {
+            flex-shrink: 0; /* Prevent logo from shrinking */
+            margin-right: 0.5rem; /* Small space after logo before nav items */
+        }
+
+        .nav-bar-container .logo-container img {
+            height: 40px; /* Adjust logo size within nav bar */
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .nav-bar-container nav {
+            display: flex; /* Make nav a flex container too */
+            align-items: center;
+            gap: 1.5rem; /* Space between nav items */
+        }
+
+        .custom-nav-link {
+            color: rgb(180, 180, 180); /* Default grey color */
+            font-weight: 700;
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            padding: 0.5rem 0; /* Padding for hover effect */
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .custom-nav-link:hover {
+            color: #c5ff4a; /* Accent color on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Underline effect on hover for nav links */
+        .custom-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #c5ff4a; /* Accent color */
+            transition: width 0.3s ease;
+        }
+
+        .custom-nav-link:hover::after {
+            width: 100%;
+        }
+
+        .custom-nav-link:active { /* On click (while mouse button is down) */
+            color: #FFFFFF; /* Bold white */
+            font-weight: bold;
+        }
+
+        /* Main content styling for Lore page */
+        .lore-main-content {
+            padding: 8rem 2rem 4rem; /* Top padding to account for fixed header */
+            flex-grow: 1;
+            max-width: 900px; /* Limit width for readability */
+            margin: 0 auto; /* Center the content */
+            position: relative; /* Ensure content is above particles.js */
+            z-index: 1; /* Ensure it's above the particles.js background */
+        }
+
+        .lore-main-content h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 3rem;
+            color: #FFFFFF; /* Ensure H1 is white */
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Section Interactive Border (Updated) */
+        .section-interactive-border {
+            border: 2px solid rgba(255, 255, 255, 0.1); /* Subtle initial white border */
+            border-radius: 8px; /* Rounded corners for consistency */
+            transition: all 0.3s ease-in-out;
+            margin: 20px auto; /* Add some margin around sections for border visibility */
+            max-width: 1200px; /* Constrain width for consistent border */
+            box-sizing: border-box; /* Include padding and border in element's total width */
+            position: relative; /* Needed for pseudo-elements */
+            overflow: hidden; /* Hide overflow from pseudo-elements */
+        }
+
+        /* Add a subtle pixelated inner glow/shadow effect */
+        .section-interactive-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 4px solid transparent; /* Larger border for the pixel effect */
+            border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><rect x="0" y="0" width="2" height="2" fill="%23FFFFFF"/><rect x="4" y="0" width="2" height="2" fill="%23FFFFFF"/><rect x="8" y="0" width="2" height="2" fill="%23FFFFFF"/><rect x="0" y="4" width="2" height="2" fill="%23FFFFFF"/><rect x="4" y="4" width="2" height="2" fill="%23FFFFFF"/><rect x="8" y="4" width="2" height="2" fill="%23FFFFFF"/><rect x="0" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="4" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="8" y="8" width="2" height="2" fill="%23FFFFFF"/></svg>') 2 stretch; /* Pixelated white border */
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 1; /* Above the main border but below content */
+        }
+
+        .section-interactive-border:hover::before {
+            opacity: 1; /* Show on hover */
+        }
+
+        .section-interactive-border:hover {
+            border-color: #FFFFFF; /* White border on hover */
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5); /* Stronger white glow */
+        }
+
+        /* Chapter Section Styling */
+        .chapter-section {
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            background-color: rgba(26, 26, 27, 0.7); /* Semi-transparent background for readability */
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .chapter-section h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.2rem;
+            color: #FFFFFF; /* Chapter titles are white */
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .chapter-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #E0E0E0; /* Slightly off-white for body text for readability */
+            margin-bottom: 1rem;
+        }
+
+        /* Lore Quiz Section */
+        .lore-quiz-section {
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            background-color: rgba(26, 26, 27, 0.7);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .lore-quiz-section h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.2rem;
+            color: #FFFFFF; /* Quiz heading is white */
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            color: #E0E0E0; /* Slightly off-white for quiz question */
+            margin-bottom: 1.5rem;
+        }
+
+        /* Enhanced Retro Button Styling */
+        .retro-button {
+            display: inline-block;
+            background-color: #E74C3C; /* Retro Red */
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0; /* Sharp corners */
+            font-family: 'Press Start 2P', cursive; /* Retro font */
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 2px solid #A0352B; /* Darker red border */
+            box-shadow: 4px 4px 0px #A0352B; /* Pixelated shadow */
+            transition: all 0.15s ease-in-out; /* Smoother transition */
+            cursor: pointer;
+            text-decoration: none; /* Ensure no underline */
+            position: relative; /* For pseudo-elements */
+            overflow: hidden; /* Hide overflow for button effects */
+        }
+
+        .retro-button:hover {
+            background-color: #CC3322; /* Slightly darker red on hover */
+            box-shadow: 2px 2px 0px #A0352B; /* Smaller shadow on hover */
+            transform: translate(2px, 2px); /* Shift for pressed effect */
+        }
+
+        /* Add a subtle scanline/glitch effect on button hover */
+        .retro-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.1) 50%, transparent 50%);
+            background-size: 100% 4px;
+            animation: scanline-glitch 0.3s infinite steps(1);
+            opacity: 0;
+            transition: opacity 0.15s ease-in-out;
+        }
+
+        .retro-button:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes scanline-glitch {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 4px; }
+        }
+
+        .quiz-result {
+            margin-top: 2rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.8rem;
+            color: #c5ff4a; /* Accent color for quiz result */
+        }
+
+        /* Visual Timeline Section */
+        .timeline-section {
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            background-color: rgba(26, 26, 27, 0.7);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .timeline-section h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.2rem;
+            color: #FFFFFF; /* Timeline heading is white */
+            margin-bottom: 2rem;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #555;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            margin-bottom: 20px;
+        }
+
+        /* Removed Timeline Dot Styling */
+        .timeline-item::after {
+            content: none; /* Completely remove the dot */
+        }
+
+        .timeline-item-content {
+            padding: 20px 30px;
+            background-color: #1a1a1b;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: left;
+        }
+
+        .timeline-item-content h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: #c5ff4a; /* Accent color for timeline item titles */
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #E0E0E0; /* Slightly off-white for timeline item text */
+        }
+
+        .timeline-item-content .pixel-art {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            animation: floatImage 4s infinite ease-in-out alternate;
+            z-index: 2;
+        }
+
+        /* Left side of timeline */
+        .timeline-item.left {
+            left: 0;
+            padding-right: 40px; /* Adjust padding since dot is removed */
+        }
+
+        .timeline-item.left::after {
+            /* No dot, so no specific positioning needed */
+        }
+
+        .timeline-item.left .pixel-art {
+            right: -80px; /* Position pixel art to the right of left content */
+            top: 20px;
+        }
+
+        /* Right side of timeline */
+        .timeline-item.right {
+            left: 50%;
+            padding-left: 40px; /* Adjust padding since dot is removed */
+        }
+
+        .timeline-item.right::after {
+            /* No dot, so no specific positioning needed */
+        }
+
+        .timeline-item.right .pixel-art {
+            left: -80px; /* Position pixel art to the left of right content */
+            top: 20px;
+        }
+
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Footer Styling */
+        .site-footer {
+            background-color: #1a1a1b; /* Dark background, matching header */
+            color: #d0d5d5; /* Light gray text */
+            text-align: center;
+            padding: 20px;
+            margin-top: auto; /* Pushes footer to the bottom */
+            font-size: 0.9rem;
+        }
+
+        .site-footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .site-footer a {
+            color: #c5ff4a; /* Accent color for links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .site-footer a:hover {
+            color: #b4e643;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .lore-main-content h1 {
+                font-size: 2.5rem;
+            }
+            .chapter-section h2, .lore-quiz-section h2, .timeline-section h2 {
+                font-size: 1.8rem;
+            }
+            .quiz-question {
+                font-size: 1.1rem;
+            }
+            .quiz-result {
+                font-size: 1.5rem;
+            }
+            .timeline-item-content h3 {
+                font-size: 1rem;
+            }
+            .timeline-item-content p {
+                font-size: 0.9rem;
+            }
+            /* Ensure nav-bar-container stays in a row on smaller screens */
+            .nav-bar-container {
+                flex-direction: row; /* Keep elements in a row */
+                padding: 0.75rem 1.5rem; /* Maintain padding */
+                border-radius: 9999px; /* Maintain pill shape */
+                width: auto; /* Allow width to be determined by content */
+                flex-wrap: wrap; /* Allow wrapping if content is too wide, but prefer single line */
+                justify-content: center; /* Center content horizontally if it wraps */
+            }
+            .nav-bar-container nav {
+                flex-direction: row; /* Keep nav items in a row */
+                gap: 1.5rem; /* Maintain gap */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .lore-main-content {
+                padding-top: 6rem;
+            }
+            .lore-main-content h1 {
+                font-size: 2rem;
+            }
+            .chapter-section, .lore-quiz-section, .timeline-section {
+                padding: 1.5rem;
+            }
+            .chapter-section h2, .lore-quiz-section h2, .timeline-section h2 {
+                font-size: 1.5rem;
+            }
+            .quiz-question {
+                font-size: 1rem;
+            }
+            .quiz-options button {
+                font-size: 0.8rem;
+                padding: 0.6rem 1rem;
+            }
+            .quiz-result {
+                font-size: 1.2rem;
+            }
+            .timeline-container::after {
+                left: 20px; /* Move timeline line to left for mobile */
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 40px; /* Adjust padding since dot is removed */
+                padding-right: 10px;
+            }
+            .timeline-item::after {
+                /* No dot, so no specific positioning needed */
+            }
+            .timeline-item.left::after, .timeline-item.right::after {
+                /* No dot, so no specific positioning needed */
+            }
+            .timeline-item.left .pixel-art {
+                right: auto;
+                left: -40px; /* Adjust pixel art position for stacked layout */
+            }
+            .timeline-item.right .pixel-art {
+                left: -40px; /* Adjust pixel art position for stacked layout */
+            }
+            .nav-bar-container {
+                flex-direction: row;
+                padding: 0.75rem 1rem;
+                gap: 1rem;
+            }
+            .nav-bar-container nav {
+                flex-direction: row;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lore-main-content {
+                padding-top: 5rem;
+            }
+            .lore-main-content h1 {
+                font-size: 1.8rem;
+            }
+            .chapter-section, .lore-quiz-section, .timeline-section {
+                padding: 1rem;
+            }
+            .chapter-section h2, .lore-quiz-section h2, .timeline-section h2 {
+                font-size: 1.2rem;
+            }
+            .quiz-question {
+                font-size: 0.9rem;
+            }
+            .quiz-options button {
+                font-size: 0.7rem;
+                padding: 0.5rem 0.8rem;
+            }
+            .quiz-result {
+                font-size: 1rem;
+            }
+            .timeline-item-content h3 {
+                font-size: 0.9rem;
+            }
+            .timeline-item-content p {
+                font-size: 0.8rem;
+            }
+            .nav-bar-container {
+                padding: 0.5rem 0.75rem;
+                gap: 0.75rem;
+            }
+            .nav-bar-container nav {
+                gap: 0.75rem;
+            }
+            .custom-nav-link {
+                font-size: 0.8rem;
+            }
+            .nav-bar-container .logo-container img {
+                height: 30px;
+                width: 30px;
+            }
+        }
+    </style>
+</head>
+<body class="text-white font-inter">
+    <!-- Global Background Elements Container -->
+    <div class="background-elements">
+        <!-- particles.js container -->
+        <div id="particles-js"></div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="custom-header">
+        <div class="nav-bar-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="assets/images/1.PNG" alt="8-BIT Verse Logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="flex space-x-6 items-center">
+                    <li><a href="index.html" class="custom-nav-link">Home</a></li>
+                    <li><a href="collection.html" class="custom-nav-link">Collection</a></li>
+                    <li><a href="lore.html" class="custom-nav-link" style="color: #c5ff4a;">About</a></li> <!-- Highlight active link -->
+                    <li><a href="roadmap.html" class="custom-nav-link">Roadmap</a></li>
+                    <li><a href="https://x.com/8Bitverse_corp" target="_blank" class="custom-nav-link"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://discord.com/invite/8yXsn8ef" target="_blank" class="custom-nav-link"><i class="fab fa-discord"></i></a></li>
+                    <li><a href="https://yourwebsite.com/whitepaper.pdf" target="_blank" class="custom-nav-link"><i class="fas fa-file-alt"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="lore-main-content">
+        <h1>The Lore of 8-BIT Verse</h1>
+
+        <!-- Chapter 1 -->
+        <section class="chapter-section section-interactive-border" data-aos="fade-up">
+            <h2>Chapter I: The Genesis of Pixels</h2>
+            <p>In the digital dawn, when the metaverse was but a flickering byte, the 8-BIT Verse emerged from the cosmic dust of forgotten arcade dreams. It was a realm forged not by code alone, but by the collective nostalgia of a bygone era, infused with the boundless potential of the future. Here, every pixel held a memory, every sprite a story waiting to unfold.</p>
+            <p>The first inhabitants were the Data Dragons, ancient guardians of the digital archives, and the Synth-Beasts, creatures of pure energy and sound. They lived in harmony, their existence a testament to the beauty of simplicity and the power of imagination.</p>
+        </section>
+
+        <!-- Chapter 2 -->
+        <section class="chapter-section section-interactive-border" data-aos="fade-up" data-aos-delay="100">
+            <h2>Chapter II: The Rise of the Pandas</h2>
+            <p>As the Verse expanded, a new species began to materialize: the 8-BIT Pandas. These weren't ordinary pandas; they were sentient pixel constructs, each embodying an elemental force. Born from the digital echoes of ancient Earth, they carried the wisdom of nature and the resilience of code.</p>
+            <p>There were the Fire Pandas, vibrant and energetic; Water Pandas, fluid and adaptable; Metal Pandas, strong and unyielding; Earth Pandas, grounded and wise; and Wood Pandas, ever-growing and connected. Their arrival brought a new dynamic to the Verse, a balance between the raw digital energy and the organic essence of life.</p>
+        </section>
+
+        <!-- Chapter 3 -->
+        <section class="chapter-section section-interactive-border" data-aos="fade-up" data-aos-delay="200">
+            <h2>Chapter III: The Glitch and the Guardians</h2>
+            <p>But peace in the 8-BIT Verse was not eternal. A mysterious phenomenon, known as "The Glitch," began to spread. It was a chaotic force that distorted pixels, corrupted data, and threatened to unravel the very fabric of the Verse. The Data Dragons and Synth-Beasts struggled to contain it, but its unpredictable nature made it a formidable foe.</p>
+            <p>It was then that the 8-BIT Pandas stepped forward. Their unique elemental abilities allowed them to interact with The Glitch in ways others could not. They became the unlikely guardians, their pixelated forms standing strong against the digital entropy, striving to restore balance and preserve the Verse.</p>
+        </section>
+
+        <!-- Interactive Lore Quiz -->
+        <section class="lore-quiz-section section-interactive-border" data-aos="fade-up" data-aos-delay="300">
+            <h2>Which Panda Tribe Do You Belong To?</h2>
+            <div id="quiz-container">
+                <div class="quiz-question" id="quiz-question"></div>
+                <div class="quiz-options" id="quiz-options"></div>
+                <button class="retro-button mt-4" id="next-question-button" style="display: none;">Next Question</button>
+                <div class="quiz-result" id="quiz-result" style="display: none;"></div>
+            </div>
+        </section>
+
+        <!-- Visual Timeline -->
+        <section class="timeline-section section-interactive-border" data-aos="fade-up" data-aos-delay="400">
+            <h2>Journey Through the 8-BIT Eras</h2>
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-item-content">
+                        <h3>Year 0: The Big Byte</h3>
+                        <p>The 8-BIT Verse is born from the digital void, a realm of pure pixelated potential.</p>
+                        <img src="https://placehold.co/60x60/1a1a1b/c5ff4a?text=🌌" alt="Galaxy Icon" class="pixel-art">
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-item-content">
+                        <h3>Year 100: Data & Synth Era</h3>
+                        <p>Data Dragons and Synth-Beasts populate the Verse, establishing early digital civilizations.</p>
+                        <img src="https://placehold.co/60x60/1a1a1b/c5ff4a?text=🐉" alt="Dragon Icon" class="pixel-art">
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-item-content">
+                        <h3>Year 500: Panda Emergence</h3>
+                        <p>The first 8-BIT Pandas, embodying elemental forces, begin to appear across the Verse.</p>
+                        <img src="https://placehold.co/60x60/1a1a1b/c5ff4a?text=🐼" alt="Panda Icon" class="pixel-art">
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-item-content">
+                        <h3>Year 800: The Glitch Incursion</h3>
+                        <p>A mysterious "Glitch" threatens the Verse, causing digital anomalies and chaos.</p>
+                        <img src="https://placehold.co/60x60/1a1a1b/c5ff4a?text=👾" alt="Glitch Icon" class="pixel-art">
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-item-content">
+                        <h3>Year 1000: Guardianship & Future</h3>
+                        <p>8-BIT Pandas become the guardians, working to stabilize the Verse and build a new future.</p>
+                        <img src="https://placehold.co/60x60/1a1a1b/c5ff4a?text=🛡️" alt="Shield Icon" class="pixel-art">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <p>&copy; 2023 8-BIT Verse. All rights reserved.</p>
+        <p>Powered by Pixels and Passion.</p>
+    </footer>
+
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000, // animation duration
+            once: true,    // whether animation should happen only once - while scrolling down
+        });
+
+        // particles.js configuration
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#FFFFFF", "#CCCCCC", "#E0E0E0"] /* White and grey particles */
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#808080", /* Grey lines */
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 3,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                        "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Lore Quiz Logic
+        const quizQuestions = [
+            {
+                question: "When faced with chaos, do you prefer to adapt and flow, or stand firm and protect?",
+                options: [
+                    { text: "Adapt and flow", tribe: "Watercore Panda" },
+                    { text: "Stand firm and protect", tribe: "Metalcore Panda" }
+                ]
+            },
+            {
+                question: "What drives you most: explosive creativity, steady growth, or deep wisdom?",
+                options: [
+                    { text: "Explosive creativity", tribe: "Firecore Panda" },
+                    { text: "Steady growth", tribe: "Naturecore Panda" },
+                    { text: "Deep wisdom", tribe: "Earthcore Panda" }
+                ]
+            },
+            {
+                question: "Your ideal environment is: a vibrant, ever-changing landscape, a solid, unyielding fortress, or a fluid, interconnected network?",
+                options: [
+                    { text: "Vibrant, ever-changing landscape", tribe: "Glitch Panda" },
+                    { text: "Solid, unyielding fortress", tribe: "Metalcore Panda" },
+                    { text: "Fluid, interconnected network", tribe: "Synth Panda" }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        const quizQuestionElement = document.getElementById('quiz-question');
+        const quizOptionsElement = document.getElementById('quiz-options');
+        const nextQuestionButton = document.getElementById('next-question-button');
+        const quizResultElement = document.getElementById('quiz-result');
+        let quizAnswers = {};
+
+        function loadQuestion() {
+            if (currentQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuestionIndex];
+                quizQuestionElement.textContent = q.question;
+                quizOptionsElement.innerHTML = '';
+                nextQuestionButton.style.display = 'none';
+
+                q.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option.text;
+                    button.classList.add('retro-button');
+                    button.addEventListener('click', () => selectOption(option.tribe));
+                    quizOptionsElement.appendChild(button);
+                });
+                quizResultElement.style.display = 'none';
+            } else {
+                showResult();
+            }
+        }
+
+        function selectOption(chosenTribe) {
+            quizAnswers[`question${currentQuestionIndex}`] = chosenTribe;
+            quizResultElement.textContent = `You belong to the ${chosenTribe}!`;
+            quizResultElement.style.display = 'block';
+            quizOptionsElement.innerHTML = '';
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                nextQuestionButton.style.display = 'block';
+            } else {
+                nextQuestionButton.style.display = 'none';
+                quizQuestionElement.textContent = "Your Panda Tribe has been revealed!";
+            }
+        }
+
+        function showResult() {
+            const tribeCounts = {};
+            Object.values(quizAnswers).forEach(tribe => {
+                tribeCounts[tribe] = (tribeCounts[tribe] || 0) + 1;
+            });
+
+            let finalTribe = "Mystic Panda";
+            let maxCount = 0;
+            for (const tribe in tribeCounts) {
+                if (tribeCounts[tribe] > maxCount) {
+                    maxCount = tribeCounts[tribe];
+                    finalTribe = tribe;
+                }
+            }
+            quizQuestionElement.textContent = "Your Panda Tribe has been revealed!";
+            quizOptionsElement.innerHTML = '';
+            nextQuestionButton.style.display = 'none';
+            quizResultElement.textContent = `You belong to the ${finalTribe}!`;
+            quizResultElement.style.display = 'block';
+        }
+
+        nextQuestionButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            loadQuestion();
+        });
+
+        // Initial load for quiz
+        loadQuestion();
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

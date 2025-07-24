@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-BIT Verse | Roadmap</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for general text, Press Start 2P for retro elements -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Custom CSS for consistent styling across pages (still linked for header/footer/etc.) -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    /* General Body Styling */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0A0A0A; /* Deeper space black */
+        color: #FFFFFF; /* All white font */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+        position: relative;
+    }
+
+    /* Global Background Elements Container - Consolidated here for reliability */
+    .background-elements {
+        position: fixed; /* Fixed to viewport so it covers the whole screen */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Hide elements that go beyond the screen */
+        z-index: -1; /* Ensure it's behind all content */
+        pointer-events: none; /* Allow clicks to pass through to content */
+        background-color: #0A0A0A; /* Applied deep space black here as the base */
+    }
+
+    /* particles.js container */
+    #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: transparent; /* Particles.js will draw on top of the base background */
+        background-image: url(''); /* No background image for particles */
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+        z-index: 0; /* Ensure it's above the base background-color of .background-elements, but still behind content */
+    }
+
+    /* Header styling for minimalist futuristic look */
+    .custom-header {
+        background-color: transparent; /* Transparent background */
+        border: none;
+        padding: 1.5rem 2rem; /* Slightly more padding */
+        position: absolute; /* Position above hero section */
+        width: 100%;
+        z-index: 100; /* Ensure it's on top */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        display: flex; /* Ensure flex properties apply */
+        justify-content: center; /* Center the nav-bar-container */
+        align-items: center;
+        top: 0; /* Pushes the header to the very top */
+    }
+
+    /* New container for the navigation links and social icons */
+    .nav-bar-container {
+        background-color: rgba(26, 26, 27, 0.5); /* Subtle translucent background */
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+        border-radius: 9999px; /* Pill shape */
+        padding: 0.75rem 1.5rem; /* Padding inside the container */
+        display: flex;
+        align-items: center;
+        /* Adjusted gap: space between logo and nav, and between nav items */
+        gap: 1.5rem; /* Default gap */
+    }
+
+    .nav-bar-container .logo-container {
+        flex-shrink: 0; /* Prevent logo from shrinking */
+        margin-right: 0.5rem; /* Small space after logo before nav items */
+    }
+
+    .nav-bar-container .logo-container img {
+        height: 40px; /* Adjust logo size within nav bar */
+        width: 40px;
+        border-radius: 50%;
+    }
+
+    .nav-bar-container nav {
+        display: flex; /* Make nav a flex container too */
+        align-items: center;
+        gap: 1.5rem; /* Space between nav items */
+    }
+
+    .custom-nav-link {
+        color: rgb(180, 180, 180); /* Default grey color */
+        font-weight: 700;
+        transition: color 0.3s ease, transform 0.2s ease;
+        position: relative;
+        padding: 0.5rem 0; /* Padding for hover effect */
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+
+    .custom-nav-link:hover {
+        color: #c5ff4a; /* Accent color on hover */
+        transform: translateY(-2px);
+    }
+
+    /* Underline effect on hover for nav links */
+    .custom-nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #c5ff4a; /* Accent color */
+        transition: width 0.3s ease;
+    }
+
+    .custom-nav-link:hover::after {
+        width: 100%;
+    }
+
+    .custom-nav-link:active { /* On click (while mouse button is down) */
+        color: #FFFFFF; /* Bold white */
+        font-weight: bold;
+    }
+
+    /* Main content styling for under construction page */
+    .under-construction-main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 8rem 2rem 4rem; /* Top padding for header */
+    }
+
+    .under-construction-main h1 {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 3rem;
+        color: #FFFFFF; /* Changed to white */
+        margin-bottom: 1.5rem;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Changed to white glow */
+    }
+
+    .under-construction-main p {
+        font-size: 1.5rem;
+        color: #FFFFFF;
+        line-height: 1.6;
+        margin-bottom: 2rem; /* Added margin below paragraph */
+    }
+
+    .working-panda-image {
+        max-width: 250px; /* Adjust size as needed */
+        height: auto;
+        margin-bottom: 2rem;
+        animation: pandaBounce 2s infinite ease-in-out; /* Subtle animation */
+    }
+
+    @keyframes pandaBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+
+    /* Footer Styling */
+    .site-footer {
+        background-color: #1a1a1b; /* Dark background, matching header */
+        color: #d0d5d5; /* Light gray text */
+        text-align: center;
+        padding: 20px;
+        margin-top: auto; /* Pushes footer to the bottom */
+        font-size: 0.9rem;
+    }
+
+    .site-footer p {
+        margin-bottom: 0.5rem;
+    }
+
+    .site-footer a {
+        color: #c5ff4a; /* Accent color for links */
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .site-footer a:hover {
+        color: #b4e643;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+        .under-construction-main h1 {
+            font-size: 2.5rem;
+        }
+        .under-construction-main p {
+            font-size: 1.2rem;
+        }
+        .working-panda-image {
+            max-width: 200px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .under-construction-main h1 {
+            font-size: 2rem;
+        }
+        .under-construction-main p {
+            font-size: 1rem;
+        }
+        .working-panda-image {
+            max-width: 150px;
+        }
+        .nav-bar-container {
+            flex-direction: row;
+            padding: 0.75rem 1rem;
+            gap: 1rem;
+        }
+        .nav-bar-container nav {
+            flex-direction: row;
+            gap: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .under-construction-main h1 {
+            font-size: 1.5rem;
+        }
+        .under-construction-main p {
+            font-size: 0.9rem;
+        }
+        .working-panda-image {
+            max-width: 120px;
+        }
+        .nav-bar-container {
+            padding: 0.5rem 0.75rem;
+            gap: 0.75rem;
+        }
+        .nav-bar-container nav {
+            gap: 0.75rem;
+        }
+        .custom-nav-link {
+            font-size: 0.8rem;
+        }
+        .nav-bar-container .logo-container img {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    /* Disable bounce animation and make image larger for .static-large-image */
+    .working-panda-image.static-large-image {
+      animation: none !important; /* This is crucial to stop the animation */
+      max-width: 400px; /* Make it larger */
+      height: auto;
+      margin-bottom: 2rem;
+    }
+</style>
+</head>
+<body class="text-white font-inter">
+    <!-- Global Background Elements Container -->
+    <div class="background-elements">
+        <!-- particles.js container -->
+        <div id="particles-js"></div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="custom-header">
+        <div class="nav-bar-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="assets/images/1.PNG" alt="8-BIT Verse Logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="flex space-x-6 items-center">
+                    <li><a href="index.html" class="custom-nav-link">Home</a></li>
+                    <li><a href="collection.html" class="custom-nav-link">Collection</a></li>
+                    <li><a href="lore.html" class="custom-nav-link">About</a></li>
+                    <li><a href="roadmap.html" class="custom-nav-link" style="color: #c5ff4a;">Roadmap</a></li> <!-- Highlight active link -->
+                    <li><a href="https://x.com/8Bitverse_corp" target="_blank" class="custom-nav-link"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://discord.com/invite/8yXsn8ef" target="_blank" class="custom-nav-link"><i class="fab fa-discord"></i></a></li>
+                    <li><a href="https://yourwebsite.com/whitepaper.pdf" target="_blank" class="custom-nav-link"><i class="fas fa-file-alt"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="under-construction-main">
+        <h1>Roadmap Under Construction</h1>
+        <img src="assets/images/20.PNG" alt="Panda working on site" class="working-panda-image static-large-image">
+        <p>
+            We're busy building the future of the 8-BIT Verse!
+            <br>
+            Please check back later for exciting updates.
+        </p>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <p>&copy; 2023 8-BIT Verse. All rights reserved.</p>
+        <p>Powered by Pixels and Passion.</p>
+    </footer>
+
+    <script>
+        // particles.js configuration
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#FFFFFF", "#CCCCCC", "#E0E0E0"] /* White and grey particles */
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#808080", /* Grey lines */
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 3,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                        "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>

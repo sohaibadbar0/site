@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-BIT Verse | Home</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for general text, Press Start 2P for retro elements -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Animate On Scroll Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Custom CSS for consistent styling across pages (still linked for other styles) -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Body Styling - Ensure background-elements can be seen */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: transparent; /* Set to transparent to reveal background-elements */
+            color: #FFFFFF; /* All white font */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            position: relative; /* Needed for absolute positioning of background elements */
+        }
+
+        /* Global Background Elements Container - Consolidated here for reliability */
+        .background-elements {
+            position: fixed; /* Fixed to viewport so it covers the whole screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hide elements that go beyond the screen */
+            z-index: -1; /* Ensure it's behind all content */
+            pointer-events: none; /* Allow clicks to pass through to content */
+            background-color: #0A0A0A; /* Applied deep space black here as the base */
+        }
+
+        /* particles.js container */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            background-image: url('');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+        }
+
+        /* Glitch Effect on Hover */
+        .glitch-text {
+            position: relative;
+            display: inline-block; /* Essential for glitch effect */
+            transition: text-shadow 0.3s ease; /* Smooth transition for non-glitch state */
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text); /* Use data-text attribute for content */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            color: #FFFFFF; /* Default color for glitch layers */
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 #c5ff4a; /* Greenish shadow */
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 #E74C3C; /* Reddish shadow */
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+
+        /* Pause glitch animation when not hovered */
+        .glitch-text:not(:hover)::before,
+        .glitch-text:not(:hover)::after {
+            animation-play-state: paused;
+            text-shadow: none; /* No shadow when not hovered */
+            clip-path: none; /* No clip path when not hovered */
+        }
+
+        .glitch-text:hover::before {
+            animation-play-state: running;
+        }
+        .glitch-text:hover::after {
+            animation-play-state: running;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(30% 0 70% 0); }
+            20% { clip-path: inset(80% 0 0% 0); }
+            40% { clip-path: inset(10% 0 60% 0); }
+            60% { clip-path: inset(50% 0 20% 0); }
+            80% { clip-path: inset(0% 0 80% 0); }
+            100% { clip-path: inset(30% 0 70% 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(50% 0 20% 0); }
+            20% { clip-path: inset(10% 0 60% 0); }
+            40% { clip-path: inset(80% 0 0% 0); }
+            60% { clip-path: inset(30% 0 70% 0); }
+            80% { clip-path: inset(0% 0 80% 0); }
+            100% { clip-path: inset(50% 0 20% 0); }
+        }
+
+        /* Glitch effect for buttons */
+        .glitch-button {
+            position: relative;
+            overflow: hidden; /* Hide overflow for glitch layers */
+        }
+
+        .glitch-button::before,
+        .glitch-button::after {
+            content: ''; /* Empty content, background will be used */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #E74C3C; /* Match button background */
+            transition: transform 0.1s ease;
+            z-index: -1; /* Behind the button text */
+        }
+
+        .glitch-button::before {
+            transform: translateX(-100%);
+            animation: glitch-button-anim-1 1s infinite linear alternate-reverse;
+        }
+
+        .glitch-button::after {
+            transform: translateX(100%);
+            animation: glitch-button-anim-2 1s infinite linear alternate-reverse;
+        }
+
+        .glitch-button:not(:hover)::before,
+        .glitch-button:not(:hover)::after {
+            animation-play-state: paused;
+            transform: translateX(0); /* Reset position when not hovered */
+        }
+
+        .glitch-button:hover::before,
+        .glitch-button:hover::after {
+            animation-play-state: running;
+        }
+
+        @keyframes glitch-button-anim-1 {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes glitch-button-anim-2 {
+            0% { transform: translateX(100%); }
+            50% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+
+
+        /* Header styling for minimalist futuristic look */
+        .custom-header {
+            background-color: transparent; /* Transparent background */
+            border: none;
+            padding: 1.5rem 2rem; /* Slightly more padding */
+            position: absolute; /* Position above hero section */
+            width: 100%;
+            z-index: 100; /* Ensure it's on top */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            display: flex; /* Ensure flex properties apply */
+            justify-content: center; /* Center the nav-bar-container */
+            align-items: center;
+            top: 0; /* Pushes the header to the very top */
+        }
+
+        /* New container for the navigation links and social icons */
+        .nav-bar-container {
+            background-color: rgba(26, 26, 27, 0.5); /* Subtle translucent background */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+            border-radius: 9999px; /* Pill shape */
+            padding: 0.75rem 1.5rem; /* Padding inside the container */
+            display: flex;
+            align-items: center;
+            /* Adjusted gap: space between logo and nav, and between nav items */
+            gap: 1.5rem; /* Default gap */
+        }
+
+        .nav-bar-container .logo-container {
+            flex-shrink: 0; /* Prevent logo from shrinking */
+            margin-right: 0.5rem; /* Small space after logo before nav items */
+        }
+
+        .nav-bar-container .logo-container img {
+            height: 40px; /* Adjust logo size within nav bar */
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .nav-bar-container nav {
+            display: flex; /* Make nav a flex container too */
+            align-items: center;
+            gap: 1.5rem; /* Space between nav items */
+        }
+
+        .custom-nav-link {
+            color: rgb(180, 180, 180); /* Default grey color */
+            font-weight: 700;
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            padding: 0.5rem 0; /* Padding for hover effect */
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .custom-nav-link:hover {
+            color: #c5ff4a; /* Accent color on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Underline effect on hover for nav links */
+        .custom-nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: #c5ff4a; /* Accent color */
+            transition: width 0.3s ease;
+        }
+
+        .custom-nav-link:hover::after {
+            width: 100%;
+        }
+
+        .custom-nav-link:active { /* On click (while mouse button is down) */
+            color: #FFFFFF; /* Bold white */
+            font-weight: bold;
+        }
+
+        /* Hero section styling with background image */
+        .custom-hero-section {
+            background-color: #000; /* Fallback background color */
+            position: relative;
+            overflow: hidden;
+            flex-grow: 1; /* Allow main content to expand */
+            display: flex;
+            flex-direction: column; /* Allow content to stack vertically */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 1rem 8rem 1rem; /* Adjusted padding-bottom for more space */
+            background-image: url('assets/images/11.png'); /* Placeholder image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh; /* Ensure hero section takes full height */
+        }
+
+        /* Overlay for the background image to make text readable */
+        .custom-hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative; /* Ensure content is above overlay */
+        }
+
+        .hero-title {
+            font-family: 'Press Start 2P', cursive; /* Retro font for title */
+            font-size: 3rem; /* Adjusted font size to be less "big" */
+            line-height: 1.2; /* Adjusted line height for two lines */
+            color: #FFFFFF; /* Changed title color to white */
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.5rem;
+            color: #FFFFFF; /* Changed to white */
+            margin-bottom: 2rem;
+            font-weight: bold; /* Added bold font weight */
+            text-transform: uppercase; /* Added uppercase transformation */
+        }
+
+        /* Retro 8-BIT style button */
+        .retro-button {
+            display: inline-block;
+            background-color: #E74C3C; /* Retro Red */
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0; /* Sharp corners */
+            font-family: 'Press Start 2P', cursive; /* Retro font */
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 2px solid #A0352B; /* Darker red border */
+            box-shadow: 4px 4px 0px #A0352B; /* Pixelated shadow */
+            transition: all 0.1s ease-in-out;
+            cursor: pointer;
+            text-decoration: none; /* Ensure no underline */
+        }
+
+        .retro-button:hover {
+            background-color: #CC3322; /* Slightly darker red on hover */
+            box-shadow: 2px 2px 0px #A0352B; /* Smaller shadow on hover */
+            transform: translate(2px, 2px); /* Shift for pressed effect */
+        }
+
+        /* Floating Scroll Down Arrow Button */
+        .scroll-down-container {
+            position: absolute;
+            bottom: 4rem; /* Adjusted bottom position for more space */
+            z-index: 10; /* Ensure it's above overlay */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem; /* Increased gap between arrow and text */
+        }
+
+        .scroll-down-button {
+            background-color: transparent;
+            border: none;
+            color: #FFFFFF; /* Changed arrow color to white */
+            font-size: 3rem; /* Large arrow */
+            cursor: pointer;
+            animation: floatUpDown 2s infinite ease-in-out;
+            line-height: 1; /* Adjust line height for icon */
+        }
+
+        .scroll-down-text {
+            color: #FFFFFF;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Floating Corner Images */
+        .floating-image {
+            position: absolute;
+            width: 180px; /* increased size */
+            height: 180px;
+            object-fit: contain;
+            z-index: 5;
+            transform: rotate(-10deg); /* initial tilt */
+            animation: floatImageStronger 8s infinite ease-in-out alternate;
+        }
+
+        .floating-image.top-left { top: 2%; left: 2%; }
+        .floating-image.top-right { top: 2%; right: 2%; }
+        .floating-image.bottom-left { bottom: 2%; left: 2%; }
+        .floating-image.bottom-right { bottom: 2%; right: 2%; }
+
+        @keyframes floatImageStronger {
+            0%   { transform: translateY(0) rotate(-15deg); }
+            50%  { transform: translateY(-30px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(-15deg); }
+        }
+
+        /* Section for large images */
+        .image-section { /* Renamed from large-image-section for broader use */
+            padding: 40px 20px; /* Padding around the image */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: #0A0A0A; Removed background color */
+        }
+
+        .image-section img {
+            max-width: 100%; /* Reverted to original size */
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: none; /* Remove the glow */
+        }
+
+        /* Section Interactive Border (Updated) */
+        .section-interactive-border {
+            border: 2px solid rgba(255, 255, 255, 0.1); /* Subtle initial white border */
+            border-radius: 8px; /* Rounded corners for consistency */
+            transition: all 0.3s ease-in-out;
+            margin: 20px auto; /* Add some margin around sections for border visibility */
+            max-width: 1200px; /* Constrain width for consistent border */
+            box-sizing: border-box; /* Include padding and border in element's total width */
+            position: relative; /* Needed for pseudo-elements */
+            overflow: hidden; /* Hide overflow from pseudo-elements */
+        }
+
+        /* Add a subtle pixelated inner glow/shadow effect */
+        .section-interactive-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 4px solid transparent; /* Larger border for the pixel effect */
+            border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><rect x="0" y="0" width="2" height="2" fill="%23FFFFFF"/><rect x="4" y="0" width="2" height="2" fill="%23FFFFFF"/><rect x="8" y="0" width="2" height="2" fill="%23FFFFFF"/><rect x="0" y="4" width="2" height="2" fill="%23FFFFFF"/><rect x="4" y="4" width="2" height="2" fill="%23FFFFFF"/><rect x="8" y="4" width="2" height="2" fill="%23FFFFFF"/><rect x="0" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="4" y="8" width="2" height="2" fill="%23FFFFFF"/><rect x="8" y="8" width="2" height="2" fill="%23FFFFFF"/></svg>') 2 stretch; /* Pixelated white border */
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 1; /* Above the main border but below content */
+        }
+
+        .section-interactive-border:hover::before {
+            opacity: 1; /* Show on hover */
+        }
+
+        .section-interactive-border:hover {
+            border-color: #FFFFFF; /* White border on hover */
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5); /* Stronger white glow */
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 60px 20px; /* Ample padding */
+            text-align: center;
+            /* background-color: #0A0A0A; Removed background color */
+        }
+
+        .about-section h2 {
+            font-family: 'Press Start 2P', cursive; /* Applied retro font */
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+        }
+
+        .about-section .subheading {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #FFFFFF; /* Changed to white */
+            margin-bottom: 3rem; /* Space below subheading */
+        }
+
+        .about-cards-container {
+    display: flex;
+    flex-wrap: nowrap; /* prevent wrapping */
+    justify-content: center;
+    gap: 30px;
+    overflow-x: auto; /* optional: adds scroll on smaller screens */
+}
+
+
+        .about-card {
+    background-color: #1a1a1b;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 406px;       /* exact width */
+    height: 512px;      /* exact height */
+    padding: 0;         /* no padding so image fits tight */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+
+        .about-card:hover {
+            transform: translateY(-5px) scale(1.02) rotateZ(1deg); /* Added scale and tilt on hover */
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.2), 0 0 30px rgba(0, 255, 255, 0.1); /* Subtle glow on hover */
+            border-color: #c5ff4a; /* Accent color border on hover */
+        }
+
+       .about-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: none;
+}
+
+
+        /* 8-BIT MANIFESTO Section */
+        .manifesto-section {
+            padding: 60px 20px;
+            /* background-color: #0A0A0A; Removed background color */
+            display: flex; /* Use flexbox for logo and text side-by-side */
+            align-items: flex-start; /* Align items to the top */
+            justify-content: center; /* Center the flex container */
+            gap: 40px; /* Space between logo and text */
+            /* max-width: 1200px; Removed as it's now handled by .section-interactive-border */
+            /* margin: 0 auto; Removed as it's now handled by .section-interactive-border */
+        }
+
+        .manifesto-logo-container {
+            flex-shrink: 0; /* Prevent logo from shrinking */
+            width: 150px; /* Adjust logo container width as needed */
+            text-align: center;
+            padding-top: 10px; /* Align logo with heading */
+        }
+
+        .manifesto-logo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%; /* Make logo round if desired, or remove */
+        }
+
+        .manifesto-content {
+            flex-grow: 1; /* Allow content to take remaining space */
+            max-width: 800px; /* Limit text width for readability */
+            text-align: left; /* Align text within its container */
+            background-color: transparent; /* Explicitly set to transparent */
+        }
+
+        .manifesto-content h2 {
+            font-family: 'Press Start 2P', cursive; /* Applied retro font */
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 2rem;
+            text-align: center; /* Center heading within its column */
+        }
+
+        .manifesto-content p {
+            margin-bottom: 1.5rem; /* Space between paragraphs */
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #FFFFFF; /* Changed to white */
+            text-align: center; /* Center text within its max-width */
+        }
+        .manifesto-content p:last-of-type {
+            margin-bottom: 0; /* No bottom margin for the last paragraph */
+        }
+
+        /* 8-BIT PANDA Section */
+        .eight-bit-panda-section {
+            padding: 60px 20px;
+            /* background-color: #0A0A0A; Removed background color */
+            display: flex;
+            align-items: center; /* Vertically align items in the middle */
+            justify-content: center;
+            gap: 40px; /* Space between columns */
+            /* max-width: 1200px; Removed as it's now handled by .section-interactive-border */
+            /* margin: 0 auto; Removed as it's now handled by .section-interactive-border */
+            text-align: center; /* Default text align for mobile */
+        }
+
+        .eight-bit-panda-left-half {
+            flex: 1; /* Takes up half the space */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .eight-bit-panda-left-half h2 {
+            font-family: 'Press Start 2P', cursive; /* Applied retro font */
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem; /* Space below heading */
+        }
+
+        .eight-bit-panda-image-container {
+            position: relative; /* For floating animation */
+            width: 150px; /* Size of the floating image */
+            height: 150px;
+            animation: pandaFloat 8s infinite ease-in-out alternate; /* Floating animation */
+        }
+
+        .eight-bit-panda-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%; /* Make it round */
+        }
+
+        @keyframes pandaFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-3deg); }
+        }
+
+        .eight-bit-panda-right-half {
+            flex: 1; /* Takes up the other half of the space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left; /* Align text to the left for desktop */
+        }
+
+        .eight-bit-panda-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #FFFFFF; /* Changed to white */
+            margin-bottom: 1.5rem;
+        }
+
+        /* Roadmap Intro Section (New) */
+        .roadmap-intro-section {
+            padding: 60px 20px;
+            /* background-color: #0A0A0A; Removed background color */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            /* max-width: 1200px; Removed as it's now handled by .section-interactive-border */
+            /* margin: 0 auto; Removed as it's now handled by .section-interactive-border */
+            position: relative; /* For floating image */
+        }
+
+        .roadmap-intro-section h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+        }
+
+        .roadmap-intro-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #FFFFFF; /* Changed to white */
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+
+        .roadmap-intro-section .retro-button {
+            margin-top: 1rem;
+        }
+
+        .roadmap-floating-image {
+            position: absolute;
+            width: 100px; /* Smaller size for this floating image */
+            height: 100px;
+            object-fit: contain;
+            animation: floatImageStronger 10s infinite ease-in-out alternate; /* Use existing float animation */
+        }
+        .roadmap-floating-image.top-right-section { top: 10%; right: 5%; }
+        .roadmap-floating-image.bottom-left-section { bottom: 10%; left: 5%; }
+        .roadmap-floating-image.bottom-right-section { bottom: 10%; right: 5%; }
+
+
+        /* Footer Styling */
+        .site-footer {
+            background-color: #1a1a1b; /* Dark background, matching header */
+            color: #d0d5d5; /* Light gray text */
+            text-align: center;
+            padding: 20px;
+            margin-top: auto; /* Pushes footer to the bottom */
+            font-size: 0.9rem;
+        }
+
+        .site-footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .site-footer a {
+            color: #c5ff4a; /* Accent color for links */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .site-footer a:hover {
+            color: #b4e643;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .about-card {
+                width: calc(50% - 20px); /* 2 cards per row on tablets */
+            }
+            .manifesto-section, .eight-bit-panda-section, .roadmap-intro-section {
+                flex-direction: column; /* Stack logo/image and text on smaller screens */
+                align-items: center; /* Center items when stacked */
+                gap: 20px;
+            }
+            .manifesto-logo-container, .eight-bit-panda-image-container {
+                width: 120px; /* Adjust logo/image size when stacked */
+                height: 120px;
+            }
+            .manifesto-content, .eight-bit-panda-left-half, .eight-bit-panda-right-half {
+                max-width: 90%; /* Allow text/columns to take more width when stacked */
+                text-align: center; /* Center text when stacked */
+            }
+            .eight-bit-panda-left-half h2 {
+                margin-bottom: 1rem; /* Adjust margin for stacked layout */
+            }
+            /* Ensure nav-bar-container stays in a row on smaller screens */
+            .nav-bar-container {
+                flex-direction: row; /* Keep elements in a row */
+                padding: 0.75rem 1.5rem; /* Maintain padding */
+                border-radius: 9999px; /* Maintain pill shape */
+                width: auto; /* Allow width to be determined by content */
+                flex-wrap: wrap; /* Allow wrapping if content is too wide, but prefer single line */
+                justify-content: center; /* Center content horizontally if it wraps */
+            }
+            .nav-bar-container nav {
+                flex-direction: row; /* Keep nav items in a row */
+                gap: 1.5rem; /* Maintain gap */
+            }
+            .roadmap-floating-image {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-description {
+                font-size: 1.2rem;
+            }
+            .custom-header {
+                padding: 1rem;
+            }
+            /* Ensure nav-bar-container stays in a row on smaller screens */
+            .nav-bar-container {
+                flex-direction: row; /* Keep elements in a row */
+                padding: 0.75rem 1rem; /* Adjust padding for smaller screens */
+                gap: 1rem; /* Adjust gap for smaller screens */
+            }
+            .nav-bar-container nav {
+                flex-direction: row; /* Keep nav items in a row */
+                gap: 1rem; /* Adjust gap for smaller screens */
+            }
+            .retro-button {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
+            .scroll-down-button {
+                font-size: 2.5rem;
+            }
+            .floating-image {
+                width: 70px;
+                height: 70px;
+            }
+            .about-section h2, .manifesto-content h2, .eight-bit-panda-left-half h2, .roadmap-intro-section h2 {
+                font-size: 2rem;
+            }
+            .about-section .subheading {
+                font-size: 1rem;
+            }
+            .about-card {
+                width: 90%; /* Single card per row on mobile */
+            }
+            .about-card img { /* Reverted to auto for smaller screens */
+                height: auto;
+            }
+            .manifesto-content p, .eight-bit-panda-content p, .roadmap-intro-section p {
+                font-size: 1rem;
+            }
+            .roadmap-floating-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-description {
+                font-size: 1rem;
+            }
+            .scroll-down-button {
+                font-size: 2rem;
+            }
+            .scroll-down-text {
+                font-size: 0.8rem;
+            }
+            .floating-image {
+                width: 50px;
+                height: 50px;
+            }
+            /* Further adjust nav-bar-container for very small screens */
+            .nav-bar-container {
+                padding: 0.5rem 0.75rem;
+                gap: 0.75rem;
+            }
+            .nav-bar-container nav {
+                gap: 0.75rem;
+            }
+            .custom-nav-link {
+                font-size: 0.8rem; /* Smaller font for links */
+            }
+            .nav-bar-container .logo-container img {
+                height: 30px; /* Smaller logo */
+                width: 30px;
+            }
+            .roadmap-floating-image {
+                width: 50px;
+                height: 50px;
+            }
+            .about-card img { /* Reverted to auto for smaller screens */
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body class="text-white font-inter">
+    <!-- Global Background Elements Container -->
+    <div class="background-elements">
+        <!-- particles.js container -->
+        <div id="particles-js"></div>
+    </div>
+
+    <!-- Header Section - Copied directly from collection.html for consistency -->
+    <header class="custom-header">
+        <div class="nav-bar-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="assets/images/1.PNG" alt="8-BIT Verse Logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="flex space-x-6 items-center">
+                    <li><a href="index.html" class="custom-nav-link" style="color: #c5ff4a;">Home</a></li> <!-- Highlight active link -->
+                    <li><a href="collection.html" class="custom-nav-link">Collection</a></li>
+                    <li><a href="lore.html" class="custom-nav-link">About</a></li>
+                    <li><a href="roadmap.html" class="custom-nav-link">Roadmap</a></li>
+                    <li><a href="https://x.com/8Bitverse_corp" target="_blank" class="custom-nav-link"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://discord.com/invite/8yXsn8ef" target="_blank" class="custom-nav-link"><i class="fab fa-discord"></i></a></li>
+                    <li><a href="https://yourwebsite.com/whitepaper.pdf" target="_blank" class="custom-nav-link"><i class="fas fa-file-alt"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="custom-hero-section">
+        <!-- The hero section's background image and overlay will be here -->
+        <img src="assets/images/11.png" alt="Hero Background Image" class="absolute inset-0 w-full h-full object-cover -z-10">
+        <div class="custom-hero-section::before"></div> <!-- This creates the dark overlay -->
+
+        <div class="hero-content">
+            <h1 class="hero-title glitch-text" data-text="8-BIT VERSE">
+                <span id="typewriter-text"></span><span class="cursor">_</span>
+            </h1>
+            <p class="hero-description">
+                Building a timeless metaverse, one pixelated masterpiece at a time.
+            </p>
+            <a href="collection.html" class="retro-button glitch-button">Explore The Verse</a>
+        </div>
+        <div class="scroll-down-container">
+            <button class="scroll-down-button" onclick="window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });">
+                &#x2304; </button>
+            <span class="scroll-down-text">scroll down</span>
+        </div>
+
+        <img src="assets/images/7.PNG" alt="Floating Image Top Left" class="floating-image top-left">
+        <img src="assets/images/2.PNG" alt="Floating Image Top Right" class="floating-image top-right">
+        <img src="assets/images/3.PNG" alt="Floating Image Bottom Left" class="floating-image bottom-left">
+        <img src="assets/images/4.PNG" alt="Floating Image Bottom Right" class="floating-image bottom-right">
+    </main>
+
+    <section class="image-section section-interactive-border">
+        <img src="assets/images/5.PNG
+" alt="Large Section Image">
+    </section>
+
+    <section class="image-section section-interactive-border">
+        <img src="assets/images/6.PNG" alt="End Section Image">
+    </section>
+
+    <section class="about-section section-interactive-border" data-aos="fade-up">
+        <h2>Unleash Your Inner Pixel</h2>
+        <p class="subheading">Dive into the retro-futuristic world of 8-BIT Verse: where classic aesthetics meet cutting-edge innovation.</p>
+        <div class="about-cards-container">
+            <div class="about-card">
+                <img src="assets/images/22.PNG" alt="About Card 1">
+            </div>
+            <div class="about-card">
+                <img src="assets/images/23.PNG" alt="About Card 2">
+            </div>
+            <div class="about-card">
+                <img src="assets/images/25.PNG" alt="About Card 3">
+            </div>
+        </div>
+    </section>
+
+    <section class="manifesto-section section-interactive-border" data-aos="fade-right">
+        <div class="manifesto-wrapper">
+            <div class="manifesto-content">
+                <h2>THE 8-BIT MANIFESTO</h2>
+                <p>We’re not just building a game; we’re forging a legacy. Born in pixels, raised on the blockchain, we defy the fleeting trends. Our weapon is nostalgia, our canvas the metaverse.</p>
+                <p>Every 8-BIT Panda is a unique glitch in the matrix—rare, raw, and unapologetically weird. They are the guardians of our digital domain, embodying playfulness, pixelated precision, and permanence.</p>
+                <p>This isn't just a brand; it's a rebellion. A decentralized sanctuary in 8-bit armor. If you’re here for fleeting hype, keep scrolling. If you’re here to shape the future of digital art and community—welcome home. Join the revolution.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="eight-bit-panda-section section-interactive-border" data-aos="fade-left">
+        <div class="eight-bit-panda-left-half">
+            <h2>MEET THE 8-BIT PANDAS</h2>
+            <div class="eight-bit-panda-image-container">
+                <img src="https://placehold.co/150x150/000000/FFFFFF?text=Panda+Image" alt="8-BIT PANDA Floating Image"> </div>
+        </div>
+        <div class="eight-bit-panda-right-half">
+            <div class="eight-bit-panda-content">
+                <p>Only 5,555 cosmic pandas roam the 8-BIT Verse, each an embodiment of ancient elemental forces: fire, water, metal, earth, and wood. Discover the unique cosmic trait that defines each rare pixelated companion.</p>
+                <a href="collection.html" class="retro-button mt-4">Discover Your Panda</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Roadmap Section -->
+    <section class="roadmap-intro-section section-interactive-border" data-aos="zoom-in">
+        <h2>Chart Your Course</h2>
+        <p>
+            Our journey is meticulously planned, phase by phase, to expand the 8-BIT Verse and deliver groundbreaking experiences. Explore our detailed roadmap to see where we're headed next.
+        </p>
+        <a href="roadmap.html" class="retro-button glitch-button">View Roadmap</a>
+        <img src="assets/images/26.PNG" alt="Floating Map Icon" class="roadmap-floating-image bottom-right-section">
+        <img src="assets/images/13.PNG" alt="Floating Rocket Icon" class="roadmap-floating-image bottom-left-section">
+    </section>
+
+    <footer class="site-footer">
+        <p>&copy; 2023 8-BIT Verse. All rights reserved.</p>
+        <p>Powered by Pixels and Passion.</p>
+    </footer>
+
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000, // animation duration
+            once: true,    // whether animation should happen only once - while scrolling down
+        });
+
+        // Typewriter Effect
+        const typewriterTextElement = document.getElementById('typewriter-text');
+        // Changed originalText to "8-BIT <br> VERSE"
+        const originalText = "8-BIT <br> VERSE";
+        let i = 0;
+        let charIndex = 0;
+        const typingSpeed = 100; // milliseconds per character
+
+        function typeWriter() {
+            // Use innerHTML to render <br> tag
+            typewriterTextElement.innerHTML = originalText.substring(0, charIndex);
+
+            if (charIndex < originalText.length) {
+                charIndex++;
+                setTimeout(typeWriter, typingSpeed);
+            } else {
+                // Animation is done, make cursor static or hide it
+                document.querySelector('.cursor').style.display = 'none';
+            }
+        }
+
+        // Start the typewriter effect when the page loads
+        window.onload = typeWriter;
+
+        // particles.js initialization
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
